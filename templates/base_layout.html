@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Articles</title>
+    <!-- For static files in the main directory -->
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <!-- For static files in the app directory -->
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'articles/styles.css' %}"> -->
+</head>
+<body>
+    <header class="wrapper">
+        <h1><a href="{% url 'home' %}"><img src="" alt="Djangonautics"></a></h1>
+        <nav>
+            <ul>
+                {% if user.is_authenticated %}
+                <li>
+                    <!-- <form action="{% url 'accounts:logout' %}" class="logout-link" method="POST">
+                        {% csrf_token %}
+                        <button type="submit">Logout</button>
+                    </form> -->
+                    <button><a href="{% url 'accounts:logout' %}">Logout</a></button>
+                </li>
+                <li><a href="{% url 'articles:create' %}" class="highlight">New Article</a></li>
+                {% else %}
+                <li><a href="{% url 'accounts:login' %}">Login</a></li>
+                <li><a href="{% url 'accounts:signup' %}">Signup</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <div class="wrapper">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>
